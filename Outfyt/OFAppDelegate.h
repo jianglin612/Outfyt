@@ -10,7 +10,7 @@
 
 @interface OFAppDelegate : UIResponder <UIApplicationDelegate>
 
-//boom shakalaka
+//boom shakalaka2
 
 @property (strong, nonatomic) UIWindow *window;
 
