@@ -7,6 +7,7 @@
 //
 
 #import "OFFeedViewController.h"
+#import <Parse/Parse.h>
 
 @interface OFFeedViewController ()
 
@@ -27,21 +28,13 @@
 {
     [super viewDidLoad];
 
-    if(true){
-        
-    }
-    else{
-        [self performSegueWithIdentifier:@"showLogIn" sender:self];
-    }
-/* Real code for later
     PFUser *currentUser = [PFUser currentUser];
     if(currentUser){
         NSLog(@"Current User: %@", currentUser.username);
     }
     else{
-        [self performSegueWithIdentifier:@"showLogin" sender:self];
+        [self performSegueWithIdentifier:@"showLogIn" sender:self];
     }
- */
 }
 
 - (void)didReceiveMemoryWarning
