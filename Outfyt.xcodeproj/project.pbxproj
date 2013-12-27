@@ -33,6 +33,10 @@
 		9A2DAFA9186A6E3F0073C44B /* OFLogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DAFA8186A6E3F0073C44B /* OFLogInViewController.m */; };
 		9A2DAFAC186A6E600073C44B /* OFSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DAFAB186A6E600073C44B /* OFSignUpViewController.m */; };
 		9A3B2F6F186BE02D00F04B6C /* OFCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3B2F6E186BE02D00F04B6C /* OFCameraViewController.m */; };
+		9A3B2F7B186CF81E00F04B6C /* white_rounded_rect.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B2F7A186CF81E00F04B6C /* white_rounded_rect.png */; };
+		9A3B2F7E186CFCE300F04B6C /* OFAddTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3B2F7D186CFCE300F04B6C /* OFAddTagViewController.m */; };
+		9AF5ECB3186D6610006816E4 /* OFTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF5ECB2186D6610006816E4 /* OFTagCell.m */; };
+		9AF8747D186D0CA800CAA2C2 /* OFAddTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF8747C186D0CA800CAA2C2 /* OFAddTagCell.m */; };
 		9AF8CC651866451600A24FBF /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AF8CC641866451600A24FBF /* MainStoryboard.storyboard */; };
 		9AF8CC6918664C3B00A24FBF /* OFFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF8CC6818664C3B00A24FBF /* OFFeedViewController.m */; };
 		9AF8CC751866540500A24FBF /* icon_camera_alt.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AF8CC6B1866540500A24FBF /* icon_camera_alt.png */; };
@@ -93,6 +97,13 @@
 		9A2DAFAB186A6E600073C44B /* OFSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFSignUpViewController.m; sourceTree = "<group>"; };
 		9A3B2F6D186BE02D00F04B6C /* OFCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFCameraViewController.h; sourceTree = "<group>"; };
 		9A3B2F6E186BE02D00F04B6C /* OFCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFCameraViewController.m; sourceTree = "<group>"; };
+		9A3B2F7A186CF81E00F04B6C /* white_rounded_rect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_rounded_rect.png; sourceTree = "<group>"; };
+		9A3B2F7C186CFCE300F04B6C /* OFAddTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFAddTagViewController.h; sourceTree = "<group>"; };
+		9A3B2F7D186CFCE300F04B6C /* OFAddTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFAddTagViewController.m; sourceTree = "<group>"; };
+		9AF5ECB1186D6610006816E4 /* OFTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFTagCell.h; sourceTree = "<group>"; };
+		9AF5ECB2186D6610006816E4 /* OFTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFTagCell.m; sourceTree = "<group>"; };
+		9AF8747B186D0CA800CAA2C2 /* OFAddTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFAddTagCell.h; sourceTree = "<group>"; };
+		9AF8747C186D0CA800CAA2C2 /* OFAddTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFAddTagCell.m; sourceTree = "<group>"; };
 		9AF8CC641866451600A24FBF /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		9AF8CC6718664C3B00A24FBF /* OFFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFFeedViewController.h; sourceTree = "<group>"; };
 		9AF8CC6818664C3B00A24FBF /* OFFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFFeedViewController.m; sourceTree = "<group>"; };
@@ -240,6 +251,21 @@
 			name = "Administrative Tasks";
 			sourceTree = "<group>";
 		};
+		9A3B2F7F186CFCFE00F04B6C /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				9A3B2F6D186BE02D00F04B6C /* OFCameraViewController.h */,
+				9A3B2F6E186BE02D00F04B6C /* OFCameraViewController.m */,
+				9A3B2F7C186CFCE300F04B6C /* OFAddTagViewController.h */,
+				9A3B2F7D186CFCE300F04B6C /* OFAddTagViewController.m */,
+				9AF8747B186D0CA800CAA2C2 /* OFAddTagCell.h */,
+				9AF8747C186D0CA800CAA2C2 /* OFAddTagCell.m */,
+				9AF5ECB1186D6610006816E4 /* OFTagCell.h */,
+				9AF5ECB2186D6610006816E4 /* OFTagCell.m */,
+			);
+			name = Camera;
+			sourceTree = "<group>";
+		};
 		9AF8CC6618664C0900A24FBF /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,8 +273,7 @@
 				9AF8CC6818664C3B00A24FBF /* OFFeedViewController.m */,
 				9AFE3ADF1866A75700E7C235 /* OFPhotoDetailViewController.h */,
 				9AFE3AE01866A75700E7C235 /* OFPhotoDetailViewController.m */,
-				9A3B2F6D186BE02D00F04B6C /* OFCameraViewController.h */,
-				9A3B2F6E186BE02D00F04B6C /* OFCameraViewController.m */,
+				9A3B2F7F186CFCFE00F04B6C /* Camera */,
 				9A2DAF92186A23B20073C44B /* Administrative Tasks */,
 			);
 			name = "View Controllers";
@@ -257,6 +282,7 @@
 		9AF8CC6A1866540500A24FBF /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9A3B2F7A186CF81E00F04B6C /* white_rounded_rect.png */,
 				9AF8CC6B1866540500A24FBF /* icon_camera_alt.png */,
 				9AF8CC6C1866540500A24FBF /* icon_cogs.png */,
 				9AF8CC6D1866540500A24FBF /* icon_contacts_alt.png */,
@@ -356,6 +382,7 @@
 				9AF8CC7A1866540500A24FBF /* icon_plus_alt2.png in Resources */,
 				9AF8CC7D1866540500A24FBF /* icon_star_alt.png in Resources */,
 				9AF8CC651866451600A24FBF /* MainStoryboard.storyboard in Resources */,
+				9A3B2F7B186CF81E00F04B6C /* white_rounded_rect.png in Resources */,
 				9AF8CC751866540500A24FBF /* icon_camera_alt.png in Resources */,
 				9AF8CC7E1866540500A24FBF /* social_facebook.png in Resources */,
 				9AF8CC791866540500A24FBF /* icon_group.png in Resources */,
@@ -379,12 +406,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A3B2F7E186CFCE300F04B6C /* OFAddTagViewController.m in Sources */,
 				9A3B2F6F186BE02D00F04B6C /* OFCameraViewController.m in Sources */,
 				9A021FCF18660AAF00D8AB69 /* main.m in Sources */,
 				9A2DAFAC186A6E600073C44B /* OFSignUpViewController.m in Sources */,
 				9AFE3AE11866A75700E7C235 /* OFPhotoDetailViewController.m in Sources */,
+				9AF5ECB3186D6610006816E4 /* OFTagCell.m in Sources */,
 				9AF8CC6918664C3B00A24FBF /* OFFeedViewController.m in Sources */,
 				9A2DAFA9186A6E3F0073C44B /* OFLogInViewController.m in Sources */,
+				9AF8747D186D0CA800CAA2C2 /* OFAddTagCell.m in Sources */,
 				9A11EF6C186ABE6800434A28 /* OFSettingsViewController.m in Sources */,
 				9A021FD318660AAF00D8AB69 /* OFAppDelegate.m in Sources */,
 			);

@@ -7,6 +7,7 @@
 //
 
 #import "OFCameraViewController.h"
+#import "OFTagCell.h"
 #import <Parse/Parse.h>
 #import <MobileCoreServices/UTCoreTypes.h>
 
@@ -28,6 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     //Camera
     //Need to disable video (TBD, do not have working iphone)
     self.imagePicker = [[UIImagePickerController alloc] init];
@@ -44,6 +46,16 @@
     self.imagePicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:self.imagePicker.sourceType];
     
     [self presentViewController:self.imagePicker animated:NO completion:nil];
+    
+    //other setup for tableView
+    self.tagTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [self.tagTableView setBackgroundColor:[UIColor clearColor]];
+    [self setUpRightSwipe];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self.tagTableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,6 +90,8 @@
     }
 }
 
+//helper methods
+
 -(UIImage *)resizeImage:(UIImage *)image toWidth:(float)width andHeight:(float)height{
     CGSize newSize = CGSizeMake(width,height);
     CGRect newRectangle = CGRectMake(0,0,width, height);
@@ -89,7 +103,7 @@
     return resizedImage;
 }
 
-- (UIImage *) cropImage:(UIImage *)originalImage toSize:(CGSize)cropSize{
+- (UIImage *)cropImage:(UIImage *)originalImage toSize:(CGSize)cropSize{
     //calculate scale factor to go between cropframe and original image
     float SF = originalImage.size.width / cropSize.width;
     
@@ -139,6 +153,71 @@
     
     return scaledNewImage;
     
+}
+
+- (void)setUpRightSwipe {
+    UISwipeGestureRecognizer *recognizer;
+    recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                           action:@selector(swipeRight:)];
+    [recognizer setDirection:UISwipeGestureRecognizerDirectionRight];
+    [self.tagTableView addGestureRecognizer:recognizer];
+    recognizer.delegate = self;
+}
+
+//this method is called to help add a tag
+- (void)addTagWithBrand: (NSString *)brand withClothing: (NSString  *)clothing withPrice: (NSString *)price{
+    NSArray *tag = [[NSArray alloc] initWithObjects: brand,clothing,price,nil];
+    if (!self.tagArray) self.tagArray = [[NSMutableArray alloc] init];
+    [self.tagArray addObject:tag];
+}
+
+- (void)removeTagAtIndex:(int)index{
+    [self.tagArray removeObjectAtIndex:index];
+}
+
+//tag table
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [self.tagArray count]+1;
+}
+
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellIdentifier;
+    
+    if(indexPath.row==0){
+        //add tag cell
+        cellIdentifier=@"addTagCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        return cell;
+    }
+    else{
+        //tag cells, need to be updated with the correct tags from the tagArray
+        cellIdentifier=@"tagCell";
+        OFTagCell *cell = (OFTagCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        NSArray *tagAtIndexPath=[self.tagArray objectAtIndex:(indexPath.row-1)];
+        cell.brand.text = [tagAtIndexPath objectAtIndex:0];
+        cell.clothing.text = [tagAtIndexPath objectAtIndex:1];
+        cell.price.text = [tagAtIndexPath objectAtIndex:2];
+        return cell;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 40;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.tagTableView deselectRowAtIndexPath:indexPath animated:NO];
+    //should set up a warning to the number of tags you can add (to be created)
+}
+
+- (void)swipeRight:(UISwipeGestureRecognizer *)gestureRecognizer {
+    CGPoint location = [gestureRecognizer locationInView:self.tagTableView];
+    NSIndexPath *indexPath = [self.tagTableView indexPathForRowAtPoint:location];
+    [self removeTagAtIndex:(indexPath.row-1)];
+    //add some fancy animation (to be created)
+    [self.tagTableView reloadData];
 }
 
 @end
