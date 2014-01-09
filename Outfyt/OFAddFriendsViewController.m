@@ -49,11 +49,12 @@
         
         PFQuery *query = [PFUser query];
         [query whereKey:@"username" containedIn: [phoneNumbers copy]];
+        [query whereKey:@"username" notContainedIn: [phoneNumbers copy]];
         self.registeredFriendsArray = [query findObjects];
         
         NSMutableArray *registeredFriendsPhoneNumbers = [NSMutableArray new];
         for(PFUser *registeredFriend in self.registeredFriendsArray){
-            [registeredFriendsPhoneNumbers addObject:registeredFriend[@"phoneNumber"]];
+            [registeredFriendsPhoneNumbers addObject:registeredFriend[@"mobileNumber"]];
         }
         
         //iterate through the list of contacts to see which one it belongs to
@@ -65,7 +66,7 @@
                 [self.contactsNotOnOutfyt addObject:contact];
             }
         }
-        
+
         //sort the contacts
         NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
         NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
@@ -160,7 +161,9 @@
     }
     else if(indexPath.section==1){
         //people who are on Outfyt (make sure to remove from the sorted array)
-        //TBD
+        PFUser *user=self.registeredFriendsArray[indexPath.row];
+        cell.header.text = user[@"username"];
+        cell.label.text = @"";
     }
     else{
         //everyone else
