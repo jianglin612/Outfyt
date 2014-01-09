@@ -47,6 +47,7 @@
         }
         else {
             [self.navigationController popToRootViewControllerAnimated:YES];
+            [self.tabBarController setSelectedIndex: 1]; 
         }
     }];
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A017F7D1871EEB700D9A1DA /* OFFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A017F7C1871EEB700D9A1DA /* OFFriendCell.m */; };
+		9A017F801871EED200D9A1DA /* OFFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A017F7F1871EED200D9A1DA /* OFFriendsViewController.m */; };
 		9A021FC318660AAF00D8AB69 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A021FC218660AAF00D8AB69 /* Foundation.framework */; };
 		9A021FC518660AAF00D8AB69 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A021FC418660AAF00D8AB69 /* CoreGraphics.framework */; };
 		9A021FC718660AAF00D8AB69 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A021FC618660AAF00D8AB69 /* UIKit.framework */; };
@@ -33,8 +35,11 @@
 		9A2DAFA9186A6E3F0073C44B /* OFLogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DAFA8186A6E3F0073C44B /* OFLogInViewController.m */; };
 		9A2DAFAC186A6E600073C44B /* OFSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DAFAB186A6E600073C44B /* OFSignUpViewController.m */; };
 		9A3B2F6F186BE02D00F04B6C /* OFCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3B2F6E186BE02D00F04B6C /* OFCameraViewController.m */; };
-		9A3B2F7B186CF81E00F04B6C /* white_rounded_rect.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A3B2F7A186CF81E00F04B6C /* white_rounded_rect.png */; };
 		9A3B2F7E186CFCE300F04B6C /* OFAddTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3B2F7D186CFCE300F04B6C /* OFAddTagViewController.m */; };
+		9AACDED8186E292E000CDE57 /* OFAddFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AACDED7186E292E000CDE57 /* OFAddFriendsViewController.m */; };
+		9AACDEDB186E30A8000CDE57 /* OFAddFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AACDEDA186E30A8000CDE57 /* OFAddFriendCell.m */; };
+		9AACDEDD186E345F000CDE57 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AACDEDC186E345F000CDE57 /* AddressBook.framework */; };
+		9AACDEDF186E365D000CDE57 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AACDEDE186E365D000CDE57 /* AddressBookUI.framework */; };
 		9AF5ECB3186D6610006816E4 /* OFTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF5ECB2186D6610006816E4 /* OFTagCell.m */; };
 		9AF8747D186D0CA800CAA2C2 /* OFAddTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF8747C186D0CA800CAA2C2 /* OFAddTagCell.m */; };
 		9AF8CC651866451600A24FBF /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AF8CC641866451600A24FBF /* MainStoryboard.storyboard */; };
@@ -63,6 +68,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9A017F7B1871EEB700D9A1DA /* OFFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFFriendCell.h; sourceTree = "<group>"; };
+		9A017F7C1871EEB700D9A1DA /* OFFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFFriendCell.m; sourceTree = "<group>"; };
+		9A017F7E1871EED200D9A1DA /* OFFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFFriendsViewController.h; sourceTree = "<group>"; };
+		9A017F7F1871EED200D9A1DA /* OFFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFFriendsViewController.m; sourceTree = "<group>"; };
 		9A021FBF18660AAF00D8AB69 /* Outfyt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Outfyt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A021FC218660AAF00D8AB69 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9A021FC418660AAF00D8AB69 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -97,9 +106,15 @@
 		9A2DAFAB186A6E600073C44B /* OFSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFSignUpViewController.m; sourceTree = "<group>"; };
 		9A3B2F6D186BE02D00F04B6C /* OFCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFCameraViewController.h; sourceTree = "<group>"; };
 		9A3B2F6E186BE02D00F04B6C /* OFCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFCameraViewController.m; sourceTree = "<group>"; };
-		9A3B2F7A186CF81E00F04B6C /* white_rounded_rect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white_rounded_rect.png; sourceTree = "<group>"; };
 		9A3B2F7C186CFCE300F04B6C /* OFAddTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFAddTagViewController.h; sourceTree = "<group>"; };
 		9A3B2F7D186CFCE300F04B6C /* OFAddTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFAddTagViewController.m; sourceTree = "<group>"; };
+		9AACDED3186E0FE6000CDE57 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		9AACDED6186E292E000CDE57 /* OFAddFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFAddFriendsViewController.h; sourceTree = "<group>"; };
+		9AACDED7186E292E000CDE57 /* OFAddFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFAddFriendsViewController.m; sourceTree = "<group>"; };
+		9AACDED9186E30A8000CDE57 /* OFAddFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFAddFriendCell.h; sourceTree = "<group>"; };
+		9AACDEDA186E30A8000CDE57 /* OFAddFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFAddFriendCell.m; sourceTree = "<group>"; };
+		9AACDEDC186E345F000CDE57 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		9AACDEDE186E365D000CDE57 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		9AF5ECB1186D6610006816E4 /* OFTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFTagCell.h; sourceTree = "<group>"; };
 		9AF5ECB2186D6610006816E4 /* OFTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFTagCell.m; sourceTree = "<group>"; };
 		9AF8747B186D0CA800CAA2C2 /* OFAddTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFAddTagCell.h; sourceTree = "<group>"; };
@@ -126,6 +141,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AACDEDF186E365D000CDE57 /* AddressBookUI.framework in Frameworks */,
+				9AACDEDD186E345F000CDE57 /* AddressBook.framework in Frameworks */,
 				9A2DAFA2186A25D10073C44B /* MobileCoreServices.framework in Frameworks */,
 				9A2DAFA3186A25D10073C44B /* QuartzCore.framework in Frameworks */,
 				9A2DAFA4186A25D10073C44B /* Security.framework in Frameworks */,
@@ -177,6 +194,9 @@
 		9A021FC118660AAF00D8AB69 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9AACDEDE186E365D000CDE57 /* AddressBookUI.framework */,
+				9AACDEDC186E345F000CDE57 /* AddressBook.framework */,
+				9AACDED3186E0FE6000CDE57 /* CoreTelephony.framework */,
 				9A2DAF9D186A25D00073C44B /* MobileCoreServices.framework */,
 				9A2DAF9E186A25D10073C44B /* QuartzCore.framework */,
 				9A2DAF9F186A25D10073C44B /* Security.framework */,
@@ -266,6 +286,21 @@
 			name = Camera;
 			sourceTree = "<group>";
 		};
+		9AACDED5186E28DE000CDE57 /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				9AACDED6186E292E000CDE57 /* OFAddFriendsViewController.h */,
+				9AACDED7186E292E000CDE57 /* OFAddFriendsViewController.m */,
+				9AACDED9186E30A8000CDE57 /* OFAddFriendCell.h */,
+				9AACDEDA186E30A8000CDE57 /* OFAddFriendCell.m */,
+				9A017F7B1871EEB700D9A1DA /* OFFriendCell.h */,
+				9A017F7C1871EEB700D9A1DA /* OFFriendCell.m */,
+				9A017F7E1871EED200D9A1DA /* OFFriendsViewController.h */,
+				9A017F7F1871EED200D9A1DA /* OFFriendsViewController.m */,
+			);
+			name = Friends;
+			sourceTree = "<group>";
+		};
 		9AF8CC6618664C0900A24FBF /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -273,6 +308,7 @@
 				9AF8CC6818664C3B00A24FBF /* OFFeedViewController.m */,
 				9AFE3ADF1866A75700E7C235 /* OFPhotoDetailViewController.h */,
 				9AFE3AE01866A75700E7C235 /* OFPhotoDetailViewController.m */,
+				9AACDED5186E28DE000CDE57 /* Friends */,
 				9A3B2F7F186CFCFE00F04B6C /* Camera */,
 				9A2DAF92186A23B20073C44B /* Administrative Tasks */,
 			);
@@ -282,7 +318,6 @@
 		9AF8CC6A1866540500A24FBF /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				9A3B2F7A186CF81E00F04B6C /* white_rounded_rect.png */,
 				9AF8CC6B1866540500A24FBF /* icon_camera_alt.png */,
 				9AF8CC6C1866540500A24FBF /* icon_cogs.png */,
 				9AF8CC6D1866540500A24FBF /* icon_contacts_alt.png */,
@@ -346,6 +381,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Outfyt;
 				TargetAttributes = {
+					9A021FBE18660AAF00D8AB69 = {
+						DevelopmentTeam = 36M326GHNB;
+					};
 					9A021FD918660AB000D8AB69 = {
 						TestTargetID = 9A021FBE18660AAF00D8AB69;
 					};
@@ -382,7 +420,6 @@
 				9AF8CC7A1866540500A24FBF /* icon_plus_alt2.png in Resources */,
 				9AF8CC7D1866540500A24FBF /* icon_star_alt.png in Resources */,
 				9AF8CC651866451600A24FBF /* MainStoryboard.storyboard in Resources */,
-				9A3B2F7B186CF81E00F04B6C /* white_rounded_rect.png in Resources */,
 				9AF8CC751866540500A24FBF /* icon_camera_alt.png in Resources */,
 				9AF8CC7E1866540500A24FBF /* social_facebook.png in Resources */,
 				9AF8CC791866540500A24FBF /* icon_group.png in Resources */,
@@ -406,9 +443,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A017F7D1871EEB700D9A1DA /* OFFriendCell.m in Sources */,
+				9AACDEDB186E30A8000CDE57 /* OFAddFriendCell.m in Sources */,
 				9A3B2F7E186CFCE300F04B6C /* OFAddTagViewController.m in Sources */,
+				9A017F801871EED200D9A1DA /* OFFriendsViewController.m in Sources */,
 				9A3B2F6F186BE02D00F04B6C /* OFCameraViewController.m in Sources */,
 				9A021FCF18660AAF00D8AB69 /* main.m in Sources */,
+				9AACDED8186E292E000CDE57 /* OFAddFriendsViewController.m in Sources */,
 				9A2DAFAC186A6E600073C44B /* OFSignUpViewController.m in Sources */,
 				9AFE3AE11866A75700E7C235 /* OFPhotoDetailViewController.m in Sources */,
 				9AF5ECB3186D6610006816E4 /* OFTagCell.m in Sources */,
@@ -535,6 +576,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/jianglin612/Desktop/Outfyt,
@@ -543,6 +586,7 @@
 				GCC_PREFIX_HEADER = "Outfyt/Outfyt-Prefix.pch";
 				INFOPLIST_FILE = "Outfyt/Outfyt-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -552,6 +596,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/jianglin612/Desktop/Outfyt,
@@ -560,6 +606,7 @@
 				GCC_PREFIX_HEADER = "Outfyt/Outfyt-Prefix.pch";
 				INFOPLIST_FILE = "Outfyt/Outfyt-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

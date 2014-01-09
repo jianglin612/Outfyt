@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *genderField;
 @property (weak, nonatomic) IBOutlet UITextField *dateOfBirthField;
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
+@property (weak, nonatomic) IBOutlet UITextField *mobileNumberField;
 
 - (IBAction)pushNextButton:(id)sender;
 

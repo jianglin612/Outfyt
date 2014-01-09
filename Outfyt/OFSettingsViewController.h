@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface OFSettingsViewController : UITableViewController
-- (IBAction)pushLogOut:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *username;
+@property (weak, nonatomic) IBOutlet UILabel *mobileNumber;
+@property (weak, nonatomic) IBOutlet UILabel *email;
 
 @end

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OFFeedViewController : UITableViewController
+@interface OFFeedViewController : UIViewController
 
 @end

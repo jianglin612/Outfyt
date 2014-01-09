@@ -1,19 +1,20 @@
 //
-//  OFSettingsViewController.m
+//  OFFriendsViewController.m
 //  Outfyt
 //
-//  Created by John Lin on 12/25/13.
+//  Created by John Lin on 12/30/13.
 //  Copyright (c) 2013 Outfyt. All rights reserved.
 //
 
-#import "OFSettingsViewController.h"
+#import "OFFriendsViewController.h"
+#import "OFFriendCell.h"
 #import <Parse/Parse.h>
 
-@interface OFSettingsViewController ()
+@interface OFFriendsViewController ()
 
 @end
 
-@implementation OFSettingsViewController
+@implementation OFFriendsViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -33,22 +34,18 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    PFUser *currentUser=[PFUser currentUser];
     
-    //fills in the Username, mobile #, and email
-    PFQuery *query = [PFUser query];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            // The find succeeded.
-            // Do something with the found objects
-            for (PFObject *user in objects) {
-                self.username.text=user[@"username"];
-                self.mobileNumber.text = user[@"mobileNumber"];
-                self.email.text=user[@"email"];
-            }
-        } else {
-            // Log details of the failure
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
-        }
+    PFQuery *query = [PFQuery queryWithClassName:@"unregisteredFriendRelation"];
+    [query whereKey:@"user" equalTo: currentUser];
+    [query includeKey:@"friend"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *results, NSError *error) {
+        self.unregisteredFriendRelations=results;
+        [self.myTableView reloadData];
     }];
 }
 
@@ -62,9 +59,31 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
-    // Return the number of sections.
     return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if(section==0){
+        return 0;//to be implemented
+    }
+    else{
+        return [self.unregisteredFriendRelations count];
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"friendCell";
+    OFFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    PFObject *unregisteredFriendRelation=self.unregisteredFriendRelations[indexPath.row];
+    PFObject *unregisteredFriend=unregisteredFriendRelation[@"friend"];
+    
+    cell.label.text= unregisteredFriend[@"username"];
+    cell.header.text=[NSString stringWithFormat: @"%@ %@",unregisteredFriendRelation[@"firstName"],unregisteredFriendRelation[@"lastName"]];
+    
+    return cell;
 }
 
 /*
@@ -118,11 +137,4 @@
 
  */
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
-    if(indexPath.section==1 && indexPath.row==1){
-        [PFUser logOut];
-        [self performSegueWithIdentifier:@"showLogIn" sender:self];
-    }
-}
 @end
