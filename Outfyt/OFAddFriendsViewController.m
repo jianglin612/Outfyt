@@ -32,6 +32,7 @@
 {
     [super viewDidLoad];
     self.currentUser = [PFUser currentUser];
+    self.contactsNotOnOutfyt=[NSMutableArray new];
     
     if([self importContacts]){ //puts all contacts into the address book, will return false only if no permission granted
         
@@ -41,12 +42,34 @@
             [phoneNumbers addObject: contact[@"phoneNumber"]];
         }
         
+        //there are 2 options for your friend
+        //1) friend is already using app in which case you pull the user name
+        //2) friend is not using app in which case we need to pull name from contacts
+        //therefore it needs to be sorted into two lists
         
+        PFQuery *query = [PFUser query];
+        [query whereKey:@"username" containedIn: [phoneNumbers copy]];
+        self.registeredFriendsArray = [query findObjects];
+        
+        NSMutableArray *registeredFriendsPhoneNumbers = [NSMutableArray new];
+        for(PFUser *registeredFriend in self.registeredFriendsArray){
+            [registeredFriendsPhoneNumbers addObject:registeredFriend[@"phoneNumber"]];
+        }
+        
+        //iterate through the list of contacts to see which one it belongs to
+        for(NSDictionary *contact in self.allContactsArray){
+            if([registeredFriendsPhoneNumbers containsObject:contact[@"phoneNumber"]]){
+                //do nothing registered friends are already in registered Friends array
+            }
+            else{
+                [self.contactsNotOnOutfyt addObject:contact];
+            }
+        }
         
         //sort the contacts
         NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
         NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
-        self.allContactsSortedArray = [[self.allContactsArray sortedArrayUsingDescriptors:sortDescriptors] mutableCopy];
+        self.contactsNotOnOutfyt = [[self.contactsNotOnOutfyt sortedArrayUsingDescriptors:sortDescriptors] mutableCopy];
         
         //people who added me
         //Use Parse to find the people who have added you (to be coded)
@@ -117,13 +140,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(section==0){
-        return 1; //# of people who added me
+        return 1; //# of people who added me not done yet
     }
     else if(section==1){
-        return 1; //# of people who are on Outfyt
+        return [self.registeredFriendsArray count]; //# of people who are on Outfyt
     }
     else{
-        return [self.allContactsSortedArray count]; //# of people who are in my contacts not on Outfyt
+        return [self.contactsNotOnOutfyt count]; //# of people who are in my contacts not on Outfyt
     }
 }
 
@@ -132,7 +155,7 @@
     static NSString *CellIdentifier = @"addFriendCell";
     OFAddFriendCell *cell = (OFAddFriendCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     if(indexPath.section==0){
-        //people who added me
+        //people who added me (TBD, so far everyone who is on Outfyt is lumped together
         //TBD
     }
     else if(indexPath.section==1){
@@ -141,7 +164,7 @@
     }
     else{
         //everyone else
-        NSDictionary *contact=self.allContactsSortedArray[indexPath.row];
+        NSDictionary *contact=self.contactsNotOnOutfyt[indexPath.row];
         cell.label.text= contact[@"phoneNumber"];
         if(contact[@"lastName"]){
             cell.header.text = [NSString stringWithFormat: @"%@ %@",contact[@"firstName"],contact[@"lastName"]];
