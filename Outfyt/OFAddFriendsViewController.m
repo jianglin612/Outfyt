@@ -28,9 +28,11 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
+    self.unregisteredContactsToAdd = [NSMutableArray new];
+    self.registeredContactsToAdd = [NSMutableArray new];
     self.currentUser = [PFUser currentUser];
     self.contactsNotOnOutfyt=[NSMutableArray new];
     
@@ -48,7 +50,7 @@
         //therefore it needs to be sorted into two lists
         
         PFQuery *query = [PFUser query];
-        [query whereKey:@"username" containedIn: [phoneNumbers copy]];
+        [query whereKey:@"mobileNumber" containedIn: [phoneNumbers copy]];
         [query whereKey:@"username" notContainedIn: [phoneNumbers copy]];
         self.registeredFriendsArray = [query findObjects];
         
@@ -82,12 +84,6 @@
         //everyone else remaining is not on Outfyt, no need to do anything here
     }
     
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear: animated];
-    self.unregisteredContactsToAdd = [NSMutableArray new];
-    self.registeredContactsToAdd = [NSMutableArray new];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -182,43 +178,37 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     OFAddFriendCell *cell=(OFAddFriendCell *)[tableView cellForRowAtIndexPath:indexPath];
-
-    if(indexPath.section==0){
-        //users who added me
-        //TBD
-    }
-    else if(indexPath.section==1){
-        //users who are on Outfyt
-        //TBD
-    }
-    else{
-        //should figure out how to optimize for bulk saving better
-        //people who are not on Outfyt
-        NSDictionary *contact=self.allContactsSortedArray[indexPath.row];
         
-        if(contact == nil)
-        {
-            NSLog(@"Nil Contact");
+    if([cell.switchLabel.text isEqualToString: @"0"]){
+        UIImage *image = [UIImage imageNamed: @"icon_star_alt.png"];
+        [cell.image setImage:image];
+        cell.switchLabel.text=@"1";
+        
+        if(indexPath.section==1){
+            PFUser *user = self.registeredFriendsArray[indexPath.row];
+            [self.registeredContactsToAdd addObject: user];
         }
-        //NSLog(contact);
-        //NSLog(self.allContactsSortedArray);
-        
-        if([cell.switchLabel.text isEqualToString: @"0"]){
-            UIImage *image = [UIImage imageNamed: @"icon_star_alt.png"];
-            [cell.image setImage:image];
-            cell.switchLabel.text=@"1";
-            //self.unregisteredContactsToAdd=[[NSMutableArray alloc] init];
+        if(indexPath.section==2){
+            NSDictionary *contact=self.contactsNotOnOutfyt[indexPath.row];
             [self.unregisteredContactsToAdd addObject: contact];
         }
-        else{
-            UIImage *image = [UIImage imageNamed: @"icon_plus_alt2.png"];
-            [cell.image setImage:image];
-            cell.switchLabel.text=@"0";
-            if([self.unregisteredContactsToAdd indexOfObject:contact]!=Nil){
-                [self.unregisteredContactsToAdd removeObject: contact];
-            }
+    }
+    else{
+        UIImage *image = [UIImage imageNamed: @"icon_plus_alt2.png"];
+        [cell.image setImage:image];
+        cell.switchLabel.text=@"0";
+        
+        if(indexPath.section==1){
+            PFUser *user = self.registeredFriendsArray[indexPath.row];
+            [self.registeredContactsToAdd removeObject: user];
+        }
+        if(indexPath.section==2){
+            NSDictionary *contact=self.contactsNotOnOutfyt[indexPath.row];
+            //if([self.unregisteredContactsToAdd indexOfObject:contact]!=Nil){
+            [self.unregisteredContactsToAdd removeObject: contact];
         }
     }
+    
     
 /*
     //PFUser *user = [self.allUsers objectAtIndex:indexPath.row];
