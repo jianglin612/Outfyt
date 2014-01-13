@@ -33,35 +33,52 @@
     [super viewWillAppear:animated];
     self.unregisteredContactsToAdd = [NSMutableArray new];
     self.registeredContactsToAdd = [NSMutableArray new];
-    self.currentUser = [PFUser currentUser];
+    
+    self.registeredFriendsArray = [NSMutableArray new];
     self.contactsNotOnOutfyt=[NSMutableArray new];
+    
+    self.currentUser = [PFUser currentUser];
     
     if([self importContacts]){ //puts all contacts into the address book, will return false only if no permission granted
         
         //figure out which phone numbers are already friends and which are new
-        NSMutableArray *phoneNumbers=[[NSMutableArray alloc]init];
+        NSMutableArray *phoneNumbers=[NSMutableArray new];
         for(NSDictionary *contact in self.allContactsArray){
             [phoneNumbers addObject: contact[@"phoneNumber"]];
         }
         
-        //there are 2 options for your friend
+        //there are 3 options for your friend below:
+        
+        //2) friend is not using app but you already added him
+        //3) friend is not using app and you did not already add him
+        
         //1) friend is already using app in which case you pull the user name
-        //2) friend is not using app in which case we need to pull name from contacts
-        //therefore it needs to be sorted into two lists
+        PFQuery *queryRegisteredFriends = [PFUser query];
+        [queryRegisteredFriends whereKey:@"mobileNumber" containedIn: [phoneNumbers copy]];
+        [queryRegisteredFriends whereKey:@"username" notContainedIn: [phoneNumbers copy]];
+        self.registeredFriendsArray = [queryRegisteredFriends findObjects];
         
-        PFQuery *query = [PFUser query];
-        [query whereKey:@"mobileNumber" containedIn: [phoneNumbers copy]];
-        [query whereKey:@"username" notContainedIn: [phoneNumbers copy]];
-        self.registeredFriendsArray = [query findObjects];
+        //2) friend is not using app but you already added him
+        //do nothing he should not be displayed
         
-        NSMutableArray *registeredFriendsPhoneNumbers = [NSMutableArray new];
-        for(PFUser *registeredFriend in self.registeredFriendsArray){
-            [registeredFriendsPhoneNumbers addObject:registeredFriend[@"mobileNumber"]];
+        //3) friend is not using app and you did not already add him
+        NSArray *unregisteredRelationsArray=[NSArray new];
+        PFQuery *query = [PFQuery queryWithClassName:@"unregisteredFriendRelation"];
+        [query includeKey:@"user"];
+        [query includeKey:@"friend"];
+        [query whereKey:@"user" equalTo:self.currentUser];
+        
+        unregisteredRelationsArray = [query findObjects];
+        
+        NSMutableArray *unregisteredFriendsPhoneNumbers = [NSMutableArray new];
+        for(PFObject *unregisteredRelation in unregisteredRelationsArray){
+            PFUser *unregisteredFriend=unregisteredRelation[@"friend"];
+            [unregisteredFriendsPhoneNumbers addObject:unregisteredFriend[@"mobileNumber"]];
         }
         
         //iterate through the list of contacts to see which one it belongs to
         for(NSDictionary *contact in self.allContactsArray){
-            if([registeredFriendsPhoneNumbers containsObject:contact[@"phoneNumber"]]){
+            if([unregisteredFriendsPhoneNumbers containsObject:contact[@"phoneNumber"]]){
                 //do nothing registered friends are already in registered Friends array
             }
             else{
@@ -208,107 +225,10 @@
             [self.unregisteredContactsToAdd removeObject: contact];
         }
     }
-    
-    
-/*
-    //PFUser *user = [self.allUsers objectAtIndex:indexPath.row];
-    //PFRelation *friendsRelation = [self.currentUser relationforKey:@"friendRelation"];
-    
-    if ([self isFriend:user])
-    {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        
-        for (PFUser *friend in self.friends){
-            if ([friend.objectId isEqualToString: user.objectId]){
-                [self.friends removeObject:friend];
-                break;
-            }
-        }
-        
-        [friendsRelation removeObject:user];
-    }
-    else
-    {
-        cell.accessoryType=UITableViewCellAccessoryCheckmark;
-        [self.friends addObject: user];
-        [friendsRelation addObject:user];
-    }
-    
-    [self.currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if(error){
-            NSLog(@"error");
-        }
-    }];
- */
-}
-/*
--(BOOL)isFriend:(PFUser *)user{
-    for (PFUser *friend in self.friends){
-        if ([friend.objectId isEqualToString: user.objectId]){
-            return YES;
-        }
-    }
-    return NO;
-}
-*/
-
-
-
-
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
 
- */
+//helpers
 
-//helper methods
 
 - (BOOL) importContacts{
     CFErrorRef error = NULL;
