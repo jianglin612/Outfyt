@@ -41,7 +41,7 @@
     PFUser *currentUser=[PFUser currentUser];
     
     NSLog(@"got here");
-    PFQuery *query = [PFQuery queryWithClassName:@"unregisteredFriendRelation"];
+    PFQuery *query = [PFQuery queryWithClassName:@"friendRelation"];
     [query whereKey:@"user" equalTo: currentUser];
     [query includeKey:@"friend"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *results, NSError *error) {

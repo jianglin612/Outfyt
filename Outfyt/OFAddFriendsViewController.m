@@ -33,9 +33,10 @@
     [super viewWillAppear:animated];
     self.unregisteredContactsToAdd = [NSMutableArray new];
     self.registeredContactsToAdd = [NSMutableArray new];
-    
+    self.usersWhoFriendedYou = [NSMutableArray new];
     self.registeredFriendsArray = [NSMutableArray new];
     self.contactsNotOnOutfyt=[NSMutableArray new];
+    self.registeredContacts = [NSMutableArray new];
     
     self.currentUser = [PFUser currentUser];
     
@@ -49,21 +50,71 @@
         
         //there are 3 options for your friend below:
         
-        //2) friend is not using app but you already added him
-        //3) friend is not using app and you did not already add him
-        
         //1) friend is already using app in which case you pull the user name
         PFQuery *queryRegisteredFriends = [PFUser query];
         [queryRegisteredFriends whereKey:@"mobileNumber" containedIn: [phoneNumbers copy]];
         [queryRegisteredFriends whereKey:@"username" notContainedIn: [phoneNumbers copy]];
         self.registeredFriendsArray = [queryRegisteredFriends findObjects];
         
+            //There are three types of registered friends:
+            //grab all your relationships and all of their relationships
+            
+            PFQuery *queryYourFriends = [PFQuery queryWithClassName:@"friendRelation"];
+            [queryYourFriends includeKey:@"friend"];
+            [queryYourFriends whereKey:@"user" equalTo: self.currentUser];
+            [queryYourFriends includeKey:@"user"];
+        
+            NSArray *yourFriendRelationsArray=[NSArray new];
+            yourFriendRelationsArray = [queryYourFriends findObjects];
+        
+            PFQuery *queryFriendsOfYou = [PFQuery queryWithClassName:@"friendRelation"];
+            [queryFriendsOfYou includeKey:@"user"];
+            [queryFriendsOfYou whereKey:@"friend" equalTo: self.currentUser];
+            [queryFriendsOfYou includeKey:@"friend"];
+        
+            NSArray *friendsOfYouRelationsArray=[NSArray new];
+            friendsOfYouRelationsArray = [queryFriendsOfYou findObjects];
+            
+            NSMutableArray *yourFriendsArray = [NSMutableArray new];
+            for(PFObject *relation in yourFriendRelationsArray){
+                [yourFriendsArray addObject:relation[@"friend"]];
+            }
+        
+            NSLog(@"%d", [yourFriendsArray count]);
+        
+            NSMutableArray *friendsOfYouArray = [NSMutableArray new];
+            for(PFObject *relation in friendsOfYouRelationsArray){
+                PFUser *user=relation[@"user"];
+                [friendsOfYouArray addObject:user];
+            }
+
+            //a) people who you are friends with already or have already added you
+            //do nothing
+        
+            //b) people who have already added you and you need to confirm
+            //c) people who have not added you
+
+            for(PFUser *user in self.registeredFriendsArray){
+                NSLog(@"%d", [self.registeredFriendsArray count]);
+                if(![yourFriendsArray containsObject:user])
+                {
+                    NSLog(@"got here!!!");
+                    if([friendsOfYouArray containsObject:user])
+                    {
+                        [self.usersWhoFriendedYou addObject: user];
+                    }
+                    else{
+                        [self.registeredContacts addObject: user];
+                    }
+                }
+            }
+        
         //2) friend is not using app but you already added him
         //do nothing he should not be displayed
         
         //3) friend is not using app and you did not already add him
         NSArray *unregisteredRelationsArray=[NSArray new];
-        PFQuery *query = [PFQuery queryWithClassName:@"unregisteredFriendRelation"];
+        PFQuery *query = [PFQuery queryWithClassName:@"friendRelation"];
         [query includeKey:@"user"];
         [query includeKey:@"friend"];
         [query whereKey:@"user" equalTo:self.currentUser];
@@ -90,15 +141,6 @@
         NSSortDescriptor *sortByName = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
         NSArray *sortDescriptors = [NSArray arrayWithObject:sortByName];
         self.contactsNotOnOutfyt = [[self.contactsNotOnOutfyt sortedArrayUsingDescriptors:sortDescriptors] mutableCopy];
-        
-        //people who added me
-        //Use Parse to find the people who have added you (to be coded)
-        
-        //people who are on Outfyt
-        //Use Parse to find those with an account on Outfyt
-        //query for all the users with mobile phone numbers similar to contacts
-        
-        //everyone else remaining is not on Outfyt, no need to do anything here
     }
     
 }
@@ -124,12 +166,13 @@
             pfContact.password = contact[@"phoneNumber"];
             //pfContact.email = contact[@"phoneNumber"];
             pfContact[@"mobileNumber"]=contact[@"phoneNumber"];
+            pfContact[@"isRegistered"]=[NSNumber numberWithBool:NO];
             [pfContact signUp];
         }
         else{
             pfContact=pfTemp[0];
         }
-        PFObject *relation=[PFObject objectWithClassName:@"unregisteredFriendRelation"];
+        PFObject *relation=[PFObject objectWithClassName:@"friendRelation"];
         [relation setObject:self.currentUser forKey:@"user"];
         [relation setObject:pfContact forKey:@"friend"];
         [relation setObject:contact[@"firstName"] forKey:@"firstName"];
@@ -154,27 +197,50 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(section==0){
-        return 1; //# of people who added me not done yet
+        return [self.usersWhoFriendedYou count]; //# of people who added me not done yet
     }
     else if(section==1){
-        return [self.registeredFriendsArray count]; //# of people who are on Outfyt
+        return [self.registeredContacts count]; //# of people who are on Outfyt who did not friend you
     }
     else{
         return [self.contactsNotOnOutfyt count]; //# of people who are in my contacts not on Outfyt
     }
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSString *sectionName;
+    switch (section)
+    {
+        case 0:
+            sectionName = NSLocalizedString(@"Friends who added you", @"Friends who added you");
+            break;
+        case 1:
+            sectionName = NSLocalizedString(@"Friends on Outfyt", @"Friends on Outfyt");
+            break;
+        case 2:
+            sectionName = NSLocalizedString(@"Contacts", @"Contacts");
+            break;
+        default:
+            sectionName = @"";
+            break;
+    }
+    return sectionName;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"addFriendCell";
     OFAddFriendCell *cell = (OFAddFriendCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
     if(indexPath.section==0){
-        //people who added me (TBD, so far everyone who is on Outfyt is lumped together
-        //TBD
+        PFUser *user=self.usersWhoFriendedYou[indexPath.row];
+        cell.header.text = user[@"username"];
+        cell.label.text = @"";
     }
     else if(indexPath.section==1){
         //people who are on Outfyt (make sure to remove from the sorted array)
-        PFUser *user=self.registeredFriendsArray[indexPath.row];
+        PFUser *user=self.registeredContacts[indexPath.row];
         cell.header.text = user[@"username"];
         cell.label.text = @"";
     }
@@ -201,8 +267,12 @@
         [cell.image setImage:image];
         cell.switchLabel.text=@"1";
         
+        if(indexPath.section==0){
+            PFUser *user = self.usersWhoFriendedYou[indexPath.row];
+            [self.registeredContactsToAdd addObject: user];
+        }
         if(indexPath.section==1){
-            PFUser *user = self.registeredFriendsArray[indexPath.row];
+            PFUser *user = self.registeredContacts[indexPath.row];
             [self.registeredContactsToAdd addObject: user];
         }
         if(indexPath.section==2){
@@ -215,8 +285,13 @@
         [cell.image setImage:image];
         cell.switchLabel.text=@"0";
         
+        if(indexPath.section==0){
+            PFUser *user = self.usersWhoFriendedYou[indexPath.row];
+            [self.registeredContactsToAdd removeObject: user];
+        }
+        
         if(indexPath.section==1){
-            PFUser *user = self.registeredFriendsArray[indexPath.row];
+            PFUser *user = self.registeredContacts[indexPath.row];
             [self.registeredContactsToAdd removeObject: user];
         }
         if(indexPath.section==2){

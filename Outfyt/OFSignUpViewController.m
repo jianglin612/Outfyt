@@ -83,6 +83,7 @@
                         newUser[@"gender"]=gender;
                         newUser[@"dateOfBirth"]=dateOfBirth;
                         newUser[@"mobileNumber"]=mobileNumber;
+                        newUser[@"isRegistered"]=[NSNumber numberWithBool:YES];
                         [newUser saveEventually];
                         [self performSegueWithIdentifier:@"showTutorial1" sender:self];
                     }
@@ -105,6 +106,7 @@
                     newUser[@"gender"]=gender;
                     newUser[@"dateOfBirth"]=dateOfBirth;
                     newUser[@"mobileNumber"]=mobileNumber;
+                    newUser[@"isRegistered"]=[NSNumber numberWithBool:YES];
                     [newUser save];
                     
                     //login

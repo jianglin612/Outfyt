@@ -13,9 +13,12 @@
 
 @property (nonatomic,strong) NSMutableArray *allContactsArray; //ideally this is a sorted dictionary or something...
 @property (nonatomic,strong) NSMutableArray *allContactsSortedArray; //ideally this is a sorted dictionary or something...
+@property (nonatomic,strong) NSMutableArray *registeredContacts;
 @property (nonatomic,strong) NSArray *registeredFriendsArray;
 
 @property (nonatomic,strong) NSMutableArray *contactsNotOnOutfyt;
+
+@property (nonatomic,strong) NSMutableArray *usersWhoFriendedYou;
 
 @property (nonatomic,strong) NSMutableArray *unregisteredContactsToAdd;
 @property (nonatomic,strong) NSMutableArray *registeredContactsToAdd;
