@@ -39,8 +39,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     PFUser *currentUser=[PFUser currentUser];
-    
-    NSLog(@"got here");
+
     PFQuery *query = [PFQuery queryWithClassName:@"friendRelation"];
     [query whereKey:@"user" equalTo: currentUser];
     [query includeKey:@"friend"];
@@ -48,8 +47,6 @@
         self.unregisteredFriendRelations=results;
         [self.myTableView reloadData];
     }];
-    
-    NSLog(@"got here");
 }
 
 - (void)didReceiveMemoryWarning

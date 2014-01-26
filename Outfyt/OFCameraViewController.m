@@ -51,6 +51,12 @@
     self.tagTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.tagTableView setBackgroundColor:[UIColor clearColor]];
     [self setUpRightSwipe];
+
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap)];
+    
+    //modify this number to recognizer number of tap
+    [singleTap setNumberOfTapsRequired:1];
+    [self.commentField addGestureRecognizer:singleTap];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -165,6 +171,10 @@
 }
 
 //this method is called to help add a tag
+- (IBAction)pushToButton:(id)sender {
+    [self performSegueWithIdentifier:@"pushToSection" sender:self];
+}
+
 - (void)addTagWithBrand: (NSString *)brand withClothing: (NSString  *)clothing withPrice: (NSString *)price{
     NSArray *tag = [[NSArray alloc] initWithObjects: brand,clothing,price,nil];
     if (!self.tagArray) self.tagArray = [[NSMutableArray alloc] init];
@@ -202,11 +212,6 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 40;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tagTableView deselectRowAtIndexPath:indexPath animated:NO];
     //should set up a warning to the number of tags you can add (to be created)
@@ -219,5 +224,25 @@
     //add some fancy animation (to be created)
     [self.tagTableView reloadData];
 }
+
+-(void)handleSingleTap{
+    //handle tap in here
+    NSLog(@"Single tap on view");
+    if([self.commentField.text isEqualToString:@"Write a caption..."]){
+        self.commentField.text=@"";
+    }
+}
+
+//not sure if this goes here
+/*
+-(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    if(item.tag==1)
+    {
+        [self presentViewController:self.imagePicker animated:NO completion:nil];
+    }
+}
+
+*/
 
 @end

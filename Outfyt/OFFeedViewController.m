@@ -31,7 +31,7 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    // Dispose of an y resources that can be recreated.
 }
 
 #pragma mark - Table view data source

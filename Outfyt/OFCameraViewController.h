@@ -16,11 +16,18 @@
 @property (nonatomic,strong) UIImagePickerController *imagePicker;
 @property (nonatomic,strong) NSMutableArray *tagArray;
 
+@property (weak, nonatomic) IBOutlet UILabel *toFriendsField;
 @property (weak, nonatomic) IBOutlet UITextView *commentField;
 @property (weak, nonatomic) IBOutlet UIImageView *imagePreview;
 @property (weak, nonatomic) IBOutlet UITableView *tagTableView;
+@property (weak, nonatomic) IBOutlet UILabel *toField;
+
+- (IBAction)pushToButton:(id)sender;
+
 
 
 - (void)addTagWithBrand: (NSString *)brand withClothing: (NSString  *)clothing withPrice: (NSString *)price;
+
+
 
 @end

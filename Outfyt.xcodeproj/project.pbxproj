@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9217BAD91894896100B9E2EE /* OFTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9217BAD81894896100B9E2EE /* OFTabBarController.m */; };
+		9271477B188B67A2008FAF7A /* OFToFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9271477A188B67A2008FAF7A /* OFToFriendViewController.m */; };
+		9271477E188B67C0008FAF7A /* OFToFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9271477D188B67C0008FAF7A /* OFToFriendCell.m */; };
 		92A95AAB187F9E6F00DA14AA /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92A95AAA187F9E6F00DA14AA /* Parse.framework */; };
 		92A95AB8187F9EF100DA14AA /* icon_camera_alt.png in Resources */ = {isa = PBXBuildFile; fileRef = 92A95AAD187F9EF100DA14AA /* icon_camera_alt.png */; };
 		92A95AB9187F9EF100DA14AA /* icon_cogs.png in Resources */ = {isa = PBXBuildFile; fileRef = 92A95AAE187F9EF100DA14AA /* icon_cogs.png */; };
@@ -69,6 +72,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9217BAD71894896100B9E2EE /* OFTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFTabBarController.h; sourceTree = "<group>"; };
+		9217BAD81894896100B9E2EE /* OFTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFTabBarController.m; sourceTree = "<group>"; };
+		92714779188B67A2008FAF7A /* OFToFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFToFriendViewController.h; sourceTree = "<group>"; };
+		9271477A188B67A2008FAF7A /* OFToFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFToFriendViewController.m; sourceTree = "<group>"; };
+		9271477C188B67C0008FAF7A /* OFToFriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFToFriendCell.h; sourceTree = "<group>"; };
+		9271477D188B67C0008FAF7A /* OFToFriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFToFriendCell.m; sourceTree = "<group>"; };
 		92A95AAA187F9E6F00DA14AA /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		92A95AAD187F9EF100DA14AA /* icon_camera_alt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_camera_alt.png; sourceTree = "<group>"; };
 		92A95AAE187F9EF100DA14AA /* icon_cogs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_cogs.png; sourceTree = "<group>"; };
@@ -242,6 +251,8 @@
 			children = (
 				9A021FD418660AAF00D8AB69 /* Images.xcassets */,
 				9AF8CC641866451600A24FBF /* MainStoryboard.storyboard */,
+				9217BAD71894896100B9E2EE /* OFTabBarController.h */,
+				9217BAD81894896100B9E2EE /* OFTabBarController.m */,
 				9AF8CC6618664C0900A24FBF /* View Controllers */,
 				9AF8CC6A1866540500A24FBF /* Images */,
 				9A021FC918660AAF00D8AB69 /* Supporting Files */,
@@ -304,6 +315,10 @@
 				9AF8747C186D0CA800CAA2C2 /* OFAddTagCell.m */,
 				9AF5ECB1186D6610006816E4 /* OFTagCell.h */,
 				9AF5ECB2186D6610006816E4 /* OFTagCell.m */,
+				92714779188B67A2008FAF7A /* OFToFriendViewController.h */,
+				9271477A188B67A2008FAF7A /* OFToFriendViewController.m */,
+				9271477C188B67C0008FAF7A /* OFToFriendCell.h */,
+				9271477D188B67C0008FAF7A /* OFToFriendCell.m */,
 			);
 			name = Camera;
 			sourceTree = "<group>";
@@ -460,11 +475,14 @@
 				9A017F7D1871EEB700D9A1DA /* OFFriendCell.m in Sources */,
 				9AACDEDB186E30A8000CDE57 /* OFAddFriendCell.m in Sources */,
 				9A3B2F7E186CFCE300F04B6C /* OFAddTagViewController.m in Sources */,
+				9271477E188B67C0008FAF7A /* OFToFriendCell.m in Sources */,
 				9A017F801871EED200D9A1DA /* OFFriendsViewController.m in Sources */,
+				9271477B188B67A2008FAF7A /* OFToFriendViewController.m in Sources */,
 				9A3B2F6F186BE02D00F04B6C /* OFCameraViewController.m in Sources */,
 				9A021FCF18660AAF00D8AB69 /* main.m in Sources */,
 				9AACDED8186E292E000CDE57 /* OFAddFriendsViewController.m in Sources */,
 				9A2DAFAC186A6E600073C44B /* OFSignUpViewController.m in Sources */,
+				9217BAD91894896100B9E2EE /* OFTabBarController.m in Sources */,
 				9AFE3AE11866A75700E7C235 /* OFPhotoDetailViewController.m in Sources */,
 				9AF5ECB3186D6610006816E4 /* OFTagCell.m in Sources */,
 				9AF8CC6918664C3B00A24FBF /* OFFeedViewController.m in Sources */,

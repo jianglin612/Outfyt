@@ -77,15 +77,14 @@
             
             NSMutableArray *yourFriendsArray = [NSMutableArray new];
             for(PFObject *relation in yourFriendRelationsArray){
-                [yourFriendsArray addObject:relation[@"friend"]];
+                PFUser *friend = relation[@"friend"];
+                [yourFriendsArray addObject:friend.objectId];
             }
-        
-            NSLog(@"%d", [yourFriendsArray count]);
         
             NSMutableArray *friendsOfYouArray = [NSMutableArray new];
             for(PFObject *relation in friendsOfYouRelationsArray){
                 PFUser *user=relation[@"user"];
-                [friendsOfYouArray addObject:user];
+                [friendsOfYouArray addObject:user.objectId];
             }
 
             //a) people who you are friends with already or have already added you
@@ -95,11 +94,9 @@
             //c) people who have not added you
 
             for(PFUser *user in self.registeredFriendsArray){
-                NSLog(@"%d", [self.registeredFriendsArray count]);
-                if(![yourFriendsArray containsObject:user])
+                if(![yourFriendsArray containsObject:user.objectId])
                 {
-                    NSLog(@"got here!!!");
-                    if([friendsOfYouArray containsObject:user])
+                    if([friendsOfYouArray containsObject:user.objectId])
                     {
                         [self.usersWhoFriendedYou addObject: user];
                     }
