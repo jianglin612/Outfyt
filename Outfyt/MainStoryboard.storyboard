@@ -389,7 +389,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="zUP-Ge-HVz">
-                                <rect key="frame" x="0.0" y="201" width="325" height="279"/>
+                                <rect key="frame" x="0.0" y="208" width="325" height="272"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexTrackingBackgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -498,7 +498,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Share Photo" id="PQI-8k-Oe0">
-                        <barButtonItem key="rightBarButtonItem" title="Send" id="eHd-CF-7N5"/>
+                        <barButtonItem key="rightBarButtonItem" title="Share" id="eHd-CF-7N5">
+                            <connections>
+                                <action selector="pushShareButton:" destination="d2l-v5-3WV" id="evd-jj-Xlx"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -594,7 +598,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Share With" id="8lF-Qu-Nil">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="PSH-se-P9X"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="PSH-se-P9X">
+                            <connections>
+                                <action selector="pushDoneButton:" destination="YRG-2s-Pfq" id="so4-zs-CPA"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="myTableView" destination="BYD-eN-Rzs" id="XxR-iC-K8I"/>
@@ -1200,6 +1208,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="iKk-oV-Mrg"/>
+        <segue reference="aTM-bN-fUY"/>
     </inferredMetricsTieBreakers>
 </document>

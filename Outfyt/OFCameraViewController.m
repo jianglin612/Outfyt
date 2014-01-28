@@ -57,11 +57,15 @@
     //modify this number to recognizer number of tap
     [singleTap setNumberOfTapsRequired:1];
     [self.commentField addGestureRecognizer:singleTap];
+    
+    //other prep
+    self.toString = @"";
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self.tagTableView reloadData];
+    self.toFriendsField.text=self.toString;
 }
 
 - (void)didReceiveMemoryWarning
@@ -170,9 +174,29 @@
     recognizer.delegate = self;
 }
 
-//this method is called to help add a tag
 - (IBAction)pushToButton:(id)sender {
     [self performSegueWithIdentifier:@"pushToSection" sender:self];
+}
+
+- (IBAction)pushShareButton:(id)sender {
+    //upload the picture, which will have a public or private tag
+    PFObject *photo = [PFObject objectWithClassName:@"Photo"];
+    photo[@"photo"] = self.chosenImage;
+    photo[@"tags"] = self.tagArray;
+    photo[@"timeCreated"] = [NSDate date];
+    NSTimeInterval timeInterval = 5 * 60 * 60; //5 hours, should make this a FINAL later
+    photo[@"timeExpired"] = [[NSDate date] dateByAddingTimeInterval:timeInterval];
+    photo[@"owner"] = [PFUser currentUser];
+    photo[@"caption"] = self.commentField;
+    if(self.sendToPublic)
+    {
+        photo[@"public"]=@"y";
+    }
+    else{
+        photo[@"public"]=@"n";
+    }
+    [photo saveInBackground];
+    
 }
 
 - (void)addTagWithBrand: (NSString *)brand withClothing: (NSString  *)clothing withPrice: (NSString *)price{
@@ -233,16 +257,12 @@
     }
 }
 
-//not sure if this goes here
-/*
--(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
-{
-    if(item.tag==1)
-    {
-        [self presentViewController:self.imagePicker animated:NO completion:nil];
-    }
-}
 
-*/
+-(void)prepareFriendsToSendTo:(NSMutableArray *)friendsToSendArray withText:(NSString *) toString withSendToPublic:
+(BOOL) sendToPublic{
+    self.toString=toString;
+    self.friendsToSendArray=friendsToSendArray;
+    self.sendToPublic=sendToPublic;
+}
 
 @end
