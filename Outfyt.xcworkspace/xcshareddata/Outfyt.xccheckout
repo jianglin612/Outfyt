@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>953E03A8-8ECC-444E-A265-5D14961460DC</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Outfyt</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>71AEECF5-1D38-48D3-96EC-3F140868F1F8</key>
+		<string>ssh://github.com/jianglin612/Outfyt.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Outfyt.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>71AEECF5-1D38-48D3-96EC-3F140868F1F8</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/jianglin612/Outfyt.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>71AEECF5-1D38-48D3-96EC-3F140868F1F8</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>71AEECF5-1D38-48D3-96EC-3F140868F1F8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Outfyt</string>
+		</dict>
+	</array>
+</dict>
+</plist>
