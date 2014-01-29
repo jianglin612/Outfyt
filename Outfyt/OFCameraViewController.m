@@ -17,15 +17,6 @@
 
 @implementation OFCameraViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -62,12 +53,6 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self.tagTableView reloadData];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void) imagePickerControllerDidCancel:(UIImagePickerController *)picker{
@@ -232,17 +217,5 @@
         self.commentField.text=@"";
     }
 }
-
-//not sure if this goes here
-/*
--(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
-{
-    if(item.tag==1)
-    {
-        [self presentViewController:self.imagePicker animated:NO completion:nil];
-    }
-}
-
-*/
 
 @end

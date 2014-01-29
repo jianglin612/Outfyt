@@ -15,29 +15,6 @@
 
 @implementation OFSignUpViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
-    NSLog(@"Loaded");
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)pushNextButton:(id)sender {
     //Puts the values of the field texts into strings
     NSString *userName = self.userNameField.text;
