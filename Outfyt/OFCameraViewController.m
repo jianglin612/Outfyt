@@ -179,23 +179,44 @@
 }
 
 - (IBAction)pushShareButton:(id)sender {
-    //upload the picture, which will have a public or private tag
+
     PFObject *photo = [PFObject objectWithClassName:@"Photo"];
-    photo[@"photo"] = self.chosenImage;
-    photo[@"tags"] = self.tagArray;
-    photo[@"timeCreated"] = [NSDate date];
-    NSTimeInterval timeInterval = 5 * 60 * 60; //5 hours, should make this a FINAL later
-    photo[@"timeExpired"] = [[NSDate date] dateByAddingTimeInterval:timeInterval];
     photo[@"owner"] = [PFUser currentUser];
-    photo[@"caption"] = self.commentField;
-    if(self.sendToPublic)
-    {
-        photo[@"public"]=@"y";
-    }
-    else{
-        photo[@"public"]=@"n";
-    }
-    [photo saveInBackground];
+    photo[@"timeCreated"] = [NSDate date];
+    NSString *photoOwnerUsername=photo[@"owner"][@"username"];
+    
+    //create the photo file
+    NSString *dateString = [NSDateFormatter localizedStringFromDate:photo[@"timeCreated"]
+                                                          dateStyle:NSDateFormatterShortStyle
+                                                          timeStyle:NSDateFormatterFullStyle];
+    NSString *photoName = [NSString stringWithFormat:@"photo %@", photoOwnerUsername];
+    NSLog(@"%@", photoName);
+    NSData *data = [photoName dataUsingEncoding:NSUTF8StringEncoding];
+    PFFile *file = [PFFile fileWithName:photoName data:data];
+    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        //add the attribtues of the photo file
+        photo[@"file"] = file;
+        photo[@"tags"] = self.tagArray;
+        NSTimeInterval timeInterval = 5 * 60 * 60; //5 hours, should make this a FINAL later
+        photo[@"timeExpired"] = [[NSDate date] dateByAddingTimeInterval:timeInterval];
+        photo[@"caption"] = self.commentField.text;
+        if(self.sendToPublic)
+        {
+            photo[@"public"]=@"y";
+        }
+        else{
+            photo[@"public"]=@"n";
+        }
+        [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            //add the senders
+            NSLog(@"got here");
+            for(PFObject *friend in self.friendsToSendArray){
+                PFObject *photoRecieverRelation = [PFObject objectWithClassName: @"photoRecieverRelation"];
+                photoRecieverRelation[@"reciever"]=friend;
+                photoRecieverRelation[@"photo"]=photo;
+            }
+        }];
+    }];
     
 }
 
