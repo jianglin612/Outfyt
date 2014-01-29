@@ -58,6 +58,45 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle: @"Oops!" message:@"Please enter 9 digit mobile phone number with no dashes or spaces" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alertView show];
     }
+    
+    //DOB checker
+    NSString *dayOfBirthString;
+    NSString *monthOfBirthString;
+    NSString *yearOfBirthString;
+    
+    dayOfBirthString = [dateOfBirth substringWithRange:NSMakeRange(0,2)];
+    monthOfBirthString = [dateOfBirth substringWithRange:NSMakeRange(2,2)];
+    yearOfBirthString = [dateOfBirth substringWithRange:NSMakeRange(4,4)];
+    NSInteger dayOfBirthInt = [dayOfBirthString integerValue];
+    NSInteger monthOfBirthInt = [monthOfBirthString integerValue];
+    NSInteger yearOfBirthInt = [yearOfBirthString integerValue];
+    NSInteger leapYearCheck = yearOfBirthInt % 4;
+    
+    if(yearOfBirthInt<1900 || yearOfBirthInt>2014){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a valid year" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alertView show];
+    }
+    else if(monthOfBirthInt<1 || monthOfBirthInt>12){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a valid month" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alertView show];
+    }
+    else if(dayOfBirthInt<1 || dayOfBirthInt>31){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a valid day" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alertView show];
+    }
+    else if(monthOfBirthInt==4 || monthOfBirthInt==6 || monthOfBirthInt==9 || monthOfBirthInt==11){
+        if(dayOfBirthInt==31){
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a valid date" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+        }
+    }
+    else if(monthOfBirthInt==2){
+        if(dayOfBirthInt==31 || dayOfBirthInt==30 || (dayOfBirthInt==29 && leapYearCheck>0)){
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a valid date" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [alertView show];
+            }
+        }
+    }
     //if the user is already an unregistered user (someone else friended you and possibly sent you messages without you signing up yet)
     
     
