@@ -17,27 +17,11 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    return [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 }
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-    if(item.tag==1){
+    if([[tabBar items] indexOfObject:item]==1){
         NSArray *viewControllers = [self viewControllers];
         UINavigationController *nav = viewControllers[1];
         OFCameraViewController *cvc = (OFCameraViewController *) nav.viewControllers[0];
