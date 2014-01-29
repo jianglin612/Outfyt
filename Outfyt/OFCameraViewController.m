@@ -17,15 +17,6 @@
 
 @implementation OFCameraViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -66,12 +57,6 @@
     [super viewDidAppear:animated];
     [self.tagTableView reloadData];
     self.toFriendsField.text=self.toString;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void) imagePickerControllerDidCancel:(UIImagePickerController *)picker{
@@ -278,12 +263,9 @@
     }
 }
 
-
--(void)prepareFriendsToSendTo:(NSMutableArray *)friendsToSendArray withText:(NSString *) toString withSendToPublic:
-(BOOL) sendToPublic{
+-(void)prepareFriendsToSendTo:(NSMutableArray *)friendsToSendArray withText:(NSString *) toString withSendToPublic:(BOOL) sendToPublic{
     self.toString=toString;
     self.friendsToSendArray=friendsToSendArray;
     self.sendToPublic=sendToPublic;
 }
-
 @end
