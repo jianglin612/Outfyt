@@ -57,11 +57,15 @@
     //modify this number to recognizer number of tap
     [singleTap setNumberOfTapsRequired:1];
     [self.commentField addGestureRecognizer:singleTap];
+    
+    //other prep
+    self.toString = @"";
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self.tagTableView reloadData];
+    self.toFriendsField.text=self.toString;
 }
 
 - (void)didReceiveMemoryWarning
@@ -170,9 +174,50 @@
     recognizer.delegate = self;
 }
 
-//this method is called to help add a tag
 - (IBAction)pushToButton:(id)sender {
     [self performSegueWithIdentifier:@"pushToSection" sender:self];
+}
+
+- (IBAction)pushShareButton:(id)sender {
+
+    PFObject *photo = [PFObject objectWithClassName:@"Photo"];
+    photo[@"owner"] = [PFUser currentUser];
+    photo[@"timeCreated"] = [NSDate date];
+    NSString *photoOwnerUsername=photo[@"owner"][@"username"];
+    
+    //create the photo file
+    NSString *dateString = [NSDateFormatter localizedStringFromDate:photo[@"timeCreated"]
+                                                          dateStyle:NSDateFormatterShortStyle
+                                                          timeStyle:NSDateFormatterFullStyle];
+    NSString *photoName = [NSString stringWithFormat:@"photo %@", photoOwnerUsername];
+    NSLog(@"%@", photoName);
+    NSData *data = [photoName dataUsingEncoding:NSUTF8StringEncoding];
+    PFFile *file = [PFFile fileWithName:photoName data:data];
+    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        //add the attribtues of the photo file
+        photo[@"file"] = file;
+        photo[@"tags"] = self.tagArray;
+        NSTimeInterval timeInterval = 5 * 60 * 60; //5 hours, should make this a FINAL later
+        photo[@"timeExpired"] = [[NSDate date] dateByAddingTimeInterval:timeInterval];
+        photo[@"caption"] = self.commentField.text;
+        if(self.sendToPublic)
+        {
+            photo[@"public"]=@"y";
+        }
+        else{
+            photo[@"public"]=@"n";
+        }
+        [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            //add the senders
+            NSLog(@"got here");
+            for(PFObject *friend in self.friendsToSendArray){
+                PFObject *photoRecieverRelation = [PFObject objectWithClassName: @"photoRecieverRelation"];
+                photoRecieverRelation[@"reciever"]=friend;
+                photoRecieverRelation[@"photo"]=photo;
+            }
+        }];
+    }];
+    
 }
 
 - (void)addTagWithBrand: (NSString *)brand withClothing: (NSString  *)clothing withPrice: (NSString *)price{
@@ -233,16 +278,12 @@
     }
 }
 
-//not sure if this goes here
-/*
--(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
-{
-    if(item.tag==1)
-    {
-        [self presentViewController:self.imagePicker animated:NO completion:nil];
-    }
-}
 
-*/
+-(void)prepareFriendsToSendTo:(NSMutableArray *)friendsToSendArray withText:(NSString *) toString withSendToPublic:
+(BOOL) sendToPublic{
+    self.toString=toString;
+    self.friendsToSendArray=friendsToSendArray;
+    self.sendToPublic=sendToPublic;
+}
 
 @end

@@ -8,6 +8,7 @@
 
 #import "OFToFriendViewController.h"
 #import "OFToFriendCell.h"
+#import "OFCameraViewController.h"
 
 @interface OFToFriendViewController ()
 
@@ -27,7 +28,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.friendsRelationsToSend=[NSMutableArray new];
+    self.friendsRelationsToSend=[NSMutableArray new];\
+    self.sendToPublicSwitch=FALSE;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -42,8 +44,6 @@
         self.friendRelationsArray=results;
         [self.myTableView reloadData];
     }];
-    
-    self.sendToPublicSwitch=FALSE;
 }
 
 - (void)didReceiveMemoryWarning
@@ -128,10 +128,13 @@
         }
     }
     self.toLabel.text=[self convertToText:self.friendsRelationsToSend sendToPublic:self.sendToPublicSwitch];
+    
+    
 }
 
 -(NSString *)convertToText:(NSMutableArray *)relationsToSend sendToPublic:(BOOL) toPublic{
     NSMutableString *friendsToSendString = [NSMutableString new];
+    
     if(toPublic){
         [friendsToSendString appendString:@"Public, "];
     }
@@ -144,8 +147,23 @@
             [friendsToSendString appendFormat: @"%@ %@, ", relation[@"firstName"], relation[@"lastName"]];
         }
     }
-    return [friendsToSendString substringToIndex:[friendsToSendString length]-2];
+    if([friendsToSendString length]>1){
+        return [friendsToSendString substringToIndex:[friendsToSendString length]-2];
+    }
+    return @"";
 }
 
+- (IBAction)pushDoneButton:(id)sender {
+    OFCameraViewController *rvc=(OFCameraViewController *) self.navigationController.viewControllers[0];
+    //prepare for returning to the main camera view
+    NSString *toFriendsString = [self convertToText:self.friendsRelationsToSend sendToPublic:self.sendToPublicSwitch];
+    NSMutableArray *friendsToSendArray=[NSMutableArray new];
+    for (PFObject *relation in self.friendsRelationsToSend){
+        [friendsToSendArray addObject:relation[@"friend"]];
+    }
+    
+    [rvc prepareFriendsToSendTo: friendsToSendArray withText: toFriendsString withSendToPublic:self.sendToPublicSwitch];
 
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 @end

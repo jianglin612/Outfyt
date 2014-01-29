@@ -15,6 +15,10 @@
 @property (nonatomic,strong) UIImage *resizedImage;
 @property (nonatomic,strong) UIImagePickerController *imagePicker;
 @property (nonatomic,strong) NSMutableArray *tagArray;
+@property (nonatomic,strong) NSString *toString;
+
+@property (nonatomic, strong) NSMutableArray *friendsToSendArray;
+@property (nonatomic) BOOL sendToPublic;
 
 @property (weak, nonatomic) IBOutlet UILabel *toFriendsField;
 @property (weak, nonatomic) IBOutlet UITextView *commentField;
@@ -22,12 +26,14 @@
 @property (weak, nonatomic) IBOutlet UITableView *tagTableView;
 @property (weak, nonatomic) IBOutlet UILabel *toField;
 
+
 - (IBAction)pushToButton:(id)sender;
+- (IBAction)pushShareButton:(id)sender;
 
 
 
-- (void)addTagWithBrand: (NSString *)brand withClothing: (NSString  *)clothing withPrice: (NSString *)price;
-
+-(void)addTagWithBrand: (NSString *)brand withClothing: (NSString  *)clothing withPrice: (NSString *)price;
+-(void)prepareFriendsToSendTo:(NSMutableArray *)friendsToSendArray withText:(NSString *) toString withSendToPublic: (BOOL) sendToPublic;
 
 
 @end

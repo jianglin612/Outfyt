@@ -37,7 +37,7 @@
 }
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-    if(item.tag==1){
+    if([[tabBar items] indexOfObject:item]==1){
         NSArray *viewControllers = [self viewControllers];
         UINavigationController *nav = viewControllers[1];
         OFCameraViewController *cvc = (OFCameraViewController *) nav.viewControllers[0];
