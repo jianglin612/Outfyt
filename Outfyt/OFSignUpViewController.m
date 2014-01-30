@@ -71,9 +71,9 @@
         if(dayOfBirthInt==31 || dayOfBirthInt==30 || (dayOfBirthInt==29 && leapYearCheck>0)){
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!" message:@"Please enter a valid date" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
                 [alertView show];
-            }
         }
     }
+
     //if the user is already an unregistered user (someone else friended you and possibly sent you messages without you signing up yet)
     
     
@@ -139,7 +139,7 @@
             }];
             }
     }
-
+}
 #pragma -helper methods
 
 - (NSString *) trimPhoneNumber: (NSString *) phoneNumber{
