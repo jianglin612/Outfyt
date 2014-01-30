@@ -139,7 +139,6 @@
             }];
             }
     }
-}
 
 #pragma -helper methods
 
