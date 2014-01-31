@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface OFFeedViewController : UIViewController
-//
+
+@property (weak, nonatomic) IBOutlet UISegmentedControl *publicFriendSwitch;
+
 @end

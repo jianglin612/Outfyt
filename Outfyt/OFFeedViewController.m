@@ -26,6 +26,19 @@
     else{
         [self performSegueWithIdentifier:@"showLogIn" sender:self];
     }
+    //get the photos of last few public
+    PFQuery *publicQuery = [PFQuery queryWithClassName:@"photo"];
+    [publicQuery whereKey:@"public" equalTo: @"y"];
+    [publicQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        //reload table
+    }];
+    
+    
+    
+    //get the photos of last few friends
+    PFQuery *friendQuery = [PFQuery queryWithClassName:@"photoReceiverRelation"];
+    //[friendQuery whereKey:@"public" equalTo: @"y"];
+    [friendQuery findObjects];
 }
 
 #pragma mark - Table view data source
@@ -44,6 +57,14 @@
 {
     static NSString *CellIdentifier = @"FeedCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    if(self.publicFriendSwitch.selectedSegmentIndex==0)
+    {
+        //public
+    }
+    else{
+        //friends
+    }
     
     return cell;
 }

@@ -174,6 +174,7 @@
     NSString *dateString = [NSDateFormatter localizedStringFromDate:photo[@"timeCreated"]
                                                           dateStyle:NSDateFormatterShortStyle
                                                           timeStyle:NSDateFormatterFullStyle];
+    
     NSString *photoName = [NSString stringWithFormat:@"photo %@", photoOwnerUsername];
     NSLog(@"%@", photoName);
     NSData *data = [photoName dataUsingEncoding:NSUTF8StringEncoding];
@@ -194,14 +195,17 @@
         }
         [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             //add the senders
-            NSLog(@"got here");
+            NSLog(@"got here %d", [self.friendsToSendArray count]);
             for(PFObject *friend in self.friendsToSendArray){
                 PFObject *photoRecieverRelation = [PFObject objectWithClassName: @"photoRecieverRelation"];
                 photoRecieverRelation[@"reciever"]=friend;
                 photoRecieverRelation[@"photo"]=photo;
+                [photoRecieverRelation saveInBackground];
             }
         }];
     }];
+    [self.tabBarController setSelectedIndex: 1];
+    [self viewDidLoad]; //reset everything for the camera (if this works, need to check)
     
 }
 
