@@ -337,6 +337,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Outfyt" id="5Ce-O1-Noj"/>
                     <connections>
+                        <outlet property="myTableView" destination="ni7-3w-4ce" id="PNt-DR-DJn"/>
                         <outlet property="publicFriendSwitch" destination="TFD-Ek-fZ8" id="4te-Go-xdT"/>
                         <segue destination="TI3-ot-AZ9" kind="push" identifier="showLogin" id="iKk-oV-Mrg"/>
                         <segue destination="zte-Q6-q7t" kind="push" identifier="showPhotoDetail" id="bel-rR-faT"/>

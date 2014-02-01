@@ -30,7 +30,7 @@
     PFQuery *publicQuery = [PFQuery queryWithClassName:@"photo"];
     [publicQuery whereKey:@"public" equalTo: @"y"];
     [publicQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        //reload table
+        [self.myTableView reloadData];
     }];
     
     

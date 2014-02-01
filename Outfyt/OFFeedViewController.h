@@ -11,5 +11,6 @@
 @interface OFFeedViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *publicFriendSwitch;
+@property (weak, nonatomic) IBOutlet UITableView *myTableView;
 
 @end
