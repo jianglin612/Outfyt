@@ -33,7 +33,7 @@
         [self.myTableView reloadData];
     }];
     
-    
+    //
     
     //get the photos of last few friends
     PFQuery *friendQuery = [PFQuery queryWithClassName:@"photoReceiverRelation"];
