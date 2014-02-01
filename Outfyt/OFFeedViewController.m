@@ -26,14 +26,14 @@
     else{
         [self performSegueWithIdentifier:@"showLogIn" sender:self];
     }
+    
+    //
     //get the photos of last few public
     PFQuery *publicQuery = [PFQuery queryWithClassName:@"photo"];
     [publicQuery whereKey:@"public" equalTo: @"y"];
     [publicQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         [self.myTableView reloadData];
     }];
-    
-    //
     
     //get the photos of last few friends
     PFQuery *friendQuery = [PFQuery queryWithClassName:@"photoReceiverRelation"];
